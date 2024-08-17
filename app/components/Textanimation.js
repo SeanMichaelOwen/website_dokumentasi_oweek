@@ -15,7 +15,9 @@ export default function TextAnimation({ onLoadingComplete }) {
 
     const timer = setTimeout(() => {
       clearInterval(interval);
-      onLoadingComplete(); // Notify when loading is complete
+      if (typeof onLoadingComplete === 'function') {
+        onLoadingComplete(); // Notify when loading is complete
+      }
     }, 10000); // Duration of loading
 
     return () => {
@@ -57,6 +59,7 @@ export default function TextAnimation({ onLoadingComplete }) {
         ctx.fillStyle = gradient;
         ctx.fill();
 
+        // Update particle position
         particle.y -= particle.speed;
         if (particle.y < 0) {
           particle.y = canvas.height;
@@ -83,14 +86,13 @@ export default function TextAnimation({ onLoadingComplete }) {
   }, []);
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center z-50 overflow-hidden">
-      <div className="absolute inset-0 bg-white"></div> {/* Set background to white */}
+    <div className="fixed inset-0 flex items-center justify-center z-50 overflow-hidden bg-white">
       <canvas
         ref={canvasRef}
         className="absolute inset-0"
         style={{ width: '100%', height: '100%' }}
       />
-      <div className="relative flex items-center justify-center text-center">
+      <div className="relative flex items-center justify-center w-full h-full">
         <div
           className="text-2xl md:text-4xl font-semibold text-gray-800"
           style={{
