@@ -28,9 +28,18 @@ export default function TextAnimation({ onLoadingComplete }) {
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    const ctx = canvas?.getContext('2d');
+    if (!canvas) return; // Ensure canvas is available
+
+    const ctx = canvas.getContext('2d');
     const particles = [];
     const numParticles = 200;
+
+    // Ensure canvas dimensions are set
+    const resizeCanvas = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      draw();
+    };
 
     // Generate random fire particles
     for (let i = 0; i < numParticles; i++) {
@@ -44,7 +53,7 @@ export default function TextAnimation({ onLoadingComplete }) {
     }
 
     const draw = () => {
-      if (!canvas || !ctx) return;
+      if (!ctx) return;
 
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -67,14 +76,6 @@ export default function TextAnimation({ onLoadingComplete }) {
       });
 
       requestAnimationFrame(draw);
-    };
-
-    const resizeCanvas = () => {
-      if (canvas) {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-        draw();
-      }
     };
 
     resizeCanvas();
