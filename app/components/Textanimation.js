@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 
 const languages = [
-  "Hallo", "Hello", "Hola", "Bonjour", "Ciao", "こんにちは", 
+  "Hallo", "Hello", "Hola", "Bonjour", "Ciao", "こんにちは",
 ];
 
 export default function TextAnimation({ onLoadingComplete }) {
@@ -90,9 +90,9 @@ export default function TextAnimation({ onLoadingComplete }) {
         className="absolute inset-0"
         style={{ width: '100%', height: '100%' }}
       />
-      <div className="relative text-center">
+      <div className="relative flex items-center justify-center text-center">
         <div
-          className="text-4xl font-semibold text-gray-800"
+          className="text-2xl md:text-4xl font-semibold text-gray-800"
           style={{
             animation: 'fadeScale 2s ease-in-out infinite',
             opacity: 0,
