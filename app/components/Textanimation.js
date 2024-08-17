@@ -1,12 +1,11 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 
 const languages = [
-  "Hallo", "Hello", "Hola", "Bonjour", "Ciao", "こんにちは",
+  "Hallo", "Hello", "Hola", "Bonjour", "Ciao", "こんにちは", "안녕하세요", "Привет", "Merhaba", "Olá", "שלום", "नमस्ते", "Sawubona", "สวัสดี", "Selam", "γειά σου", "Kamusta", "Xin chào", "Salut"
 ];
 
 export default function TextAnimation({ onLoadingComplete }) {
   const [currentLang, setCurrentLang] = useState(0);
-  const canvasRef = useRef(null);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -26,76 +25,12 @@ export default function TextAnimation({ onLoadingComplete }) {
     };
   }, [onLoadingComplete]);
 
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return; // Ensure canvas is available
-
-    const ctx = canvas.getContext('2d');
-    const particles = [];
-    const numParticles = 200;
-
-    // Ensure canvas dimensions are set
-    const resizeCanvas = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-      draw();
-    };
-
-    // Generate random fire particles
-    for (let i = 0; i < numParticles; i++) {
-      particles.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        size: Math.random() * 5 + 1,
-        speed: Math.random() * 3 + 1,
-        opacity: Math.random(),
-      });
-    }
-
-    const draw = () => {
-      if (!ctx) return;
-
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      // Draw fire particles
-      particles.forEach(particle => {
-        ctx.beginPath();
-        ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
-        const gradient = ctx.createRadialGradient(particle.x, particle.y, 0, particle.x, particle.y, particle.size);
-        gradient.addColorStop(0, `rgba(255, 69, 0, ${particle.opacity})`);
-        gradient.addColorStop(0.5, `rgba(255, 140, 0, ${particle.opacity * 0.7})`);
-        gradient.addColorStop(1, `rgba(255, 255, 255, 0)`);
-        ctx.fillStyle = gradient;
-        ctx.fill();
-
-        // Update particle position
-        particle.y -= particle.speed;
-        if (particle.y < 0) {
-          particle.y = canvas.height;
-        }
-      });
-
-      requestAnimationFrame(draw);
-    };
-
-    resizeCanvas();
-    window.addEventListener('resize', resizeCanvas);
-
-    return () => {
-      window.removeEventListener('resize', resizeCanvas);
-    };
-  }, []);
-
   return (
-    <div className="fixed inset-0 flex items-center justify-center z-50 overflow-hidden bg-white">
-      <canvas
-        ref={canvasRef}
-        className="absolute inset-0"
-        style={{ width: '100%', height: '100%' }}
-      />
-      <div className="relative flex items-center justify-center w-full h-full">
+    <div className="fixed inset-0 flex items-center justify-center z-50 overflow-hidden">
+      <div className="absolute inset-0 bg-gradient-animate"></div>
+      <div className="relative text-center">
         <div
-          className="text-2xl md:text-4xl font-semibold text-gray-800"
+          className="text-4xl font-semibold text-gray-800"
           style={{
             animation: 'fadeScale 2s ease-in-out infinite',
             opacity: 0,
@@ -119,6 +54,24 @@ export default function TextAnimation({ onLoadingComplete }) {
             opacity: 0;
             transform: scale(0.9);
           }
+        }
+
+        @keyframes gradientAnimate {
+          0% {
+            background-position: 0% 0%;
+          }
+          50% {
+            background-position: 100% 100%;
+          }
+          100% {
+            background-position: 0% 0%;
+          }
+        }
+
+        .bg-gradient-animate {
+          background: linear-gradient(45deg, #ffffff, #f0f0f0);
+          background-size: 400% 400%;
+          animation: gradientAnimate 15s ease infinite;
         }
       `}</style>
     </div>
