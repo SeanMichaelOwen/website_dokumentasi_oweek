@@ -3,12 +3,12 @@ import { useState, useRef } from 'react';
 const GridImage = () => {
   // Data grid dan gambar
   const gridItems = [
-    { id: 1, images: ['/foto.jpeg']},
-    { id: 2, images: ['/foto2.jpeg']},
-    { id: 3, images: ['/foto3.jpeg']},
-    { id: 4, images: ['/foto4.jpeg']},
-    { id: 5, images: ['/foto.jpeg']},
-    { id: 6, images: ['/foto4.jpeg']},
+    { id: 1, images: ['/foto.jpeg'] },
+    { id: 2, images: ['/foto2.jpeg'] },
+    { id: 3, images: ['/foto3.jpeg'] },
+    { id: 4, images: ['/foto4.jpeg'] },
+    { id: 5, images: ['/foto.jpeg'] },
+    { id: 6, images: ['/foto4.jpeg'] },
   ];
 
   // State untuk menyimpan indeks grid saat ini
@@ -18,7 +18,7 @@ const GridImage = () => {
   // Fungsi untuk menggeser grid
   const nextGrid = () => {
     setCurrentGridIndex((prevIndex) => {
-      const nextIndex = (prevIndex + 1) % Math.ceil(gridItems.length / 1); // Adjust for single item per view on mobile
+      const nextIndex = (prevIndex + 1) % Math.ceil(gridItems.length / 3);
       scrollToIndex(nextIndex);
       return nextIndex;
     });
@@ -26,7 +26,7 @@ const GridImage = () => {
 
   const prevGrid = () => {
     setCurrentGridIndex((prevIndex) => {
-      const prevIndexCalc = prevIndex === 0 ? Math.ceil(gridItems.length / 1) - 1 : prevIndex - 1;
+      const prevIndexCalc = prevIndex === 0 ? Math.ceil(gridItems.length / 3) - 1 : prevIndex - 1;
       scrollToIndex(prevIndexCalc);
       return prevIndexCalc;
     });
@@ -39,9 +39,9 @@ const GridImage = () => {
     }
   };
 
-  // Mengelompokkan gridItems dalam potongan 3 (adjust for responsive layout)
+  // Mengelompokkan gridItems dalam potongan 3
   const groupedItems = gridItems.reduce((acc, item, index) => {
-    if (index % 1 === 0) acc.push([]); // Change to 1 for single item per view on mobile
+    if (index % 3 === 0) acc.push([]);
     acc[acc.length - 1].push(item);
     return acc;
   }, []);
@@ -53,12 +53,11 @@ const GridImage = () => {
         <div
           ref={scrollRef}
           className="flex transition-transform duration-700 ease-in-out"
-          style={{ flexDirection: 'row' }} // Ensure horizontal scrolling
         >
           {groupedItems.map((group, groupIndex) => (
             <div key={groupIndex} className="flex flex-shrink-0 w-full">
               {group.map((item) => (
-                <div key={item.id} className="w-full p-2 sm:w-1/2 md:w-1/3 lg:w-1/4">
+                <div key={item.id} className="w-1/3 sm:w-1/2 p-2">
                   <div className="relative overflow-hidden rounded-lg">
                     <div className="absolute inset-0 bg-gradient-to-br from-red-400 via-yellow-500 to-blue-500 opacity-70 rounded-lg"></div>
                     <div className="relative w-full h-64 bg-gray-200 rounded-lg">

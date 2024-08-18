@@ -57,6 +57,7 @@ export default function Jumbotron() {
           >
             The esgata gate is watered by a freestyle smile. But the latest but most interesting thing is my lack of interest in the valley and the timing of the shooting.
           </motion.p>
+          <a href="#MemberPhoto">
           <motion.button
             className="px-6 py-3 bg-[#EF4413] hover:bg-orange-700 rounded text-base md:text-lg font-semibold transition duration-300"
             initial={{ opacity: 0, y: 20 }}
@@ -65,6 +66,7 @@ export default function Jumbotron() {
           >
             More
           </motion.button>
+          </a>
         </div>
       </div>
     </div>
