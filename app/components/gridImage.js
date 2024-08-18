@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 
 const GridImage = () => {
   // Data grid dan gambar
@@ -11,14 +11,41 @@ const GridImage = () => {
     { id: 6, images: ['/foto4.jpeg'] },
   ];
 
-  // State untuk menyimpan indeks grid saat ini
+  // State untuk menyimpan indeks grid saat ini dan jumlah item per view
   const [currentGridIndex, setCurrentGridIndex] = useState(0);
+  const [itemsPerView, setItemsPerView] = useState(3);
   const scrollRef = useRef(null);
+
+  // Update itemsPerView berdasarkan lebar jendela
+  const updateItemsPerView = () => {
+    const width = window.innerWidth;
+    if (width < 640) { // Mobile
+      setItemsPerView(2);
+    } else { // Desktop
+      setItemsPerView(3);
+    }
+  };
+
+  useEffect(() => {
+    // Initial setting
+    updateItemsPerView();
+
+    // Update on resize
+    window.addEventListener('resize', updateItemsPerView);
+    return () => window.removeEventListener('resize', updateItemsPerView);
+  }, []);
+
+  // Mengelompokkan gridItems dalam potongan berdasarkan itemsPerView
+  const groupedItems = gridItems.reduce((acc, item, index) => {
+    if (index % itemsPerView === 0) acc.push([]);
+    acc[acc.length - 1].push(item);
+    return acc;
+  }, []);
 
   // Fungsi untuk menggeser grid
   const nextGrid = () => {
     setCurrentGridIndex((prevIndex) => {
-      const nextIndex = (prevIndex + 1) % Math.ceil(gridItems.length / 3);
+      const nextIndex = (prevIndex + 1) % groupedItems.length;
       scrollToIndex(nextIndex);
       return nextIndex;
     });
@@ -26,7 +53,7 @@ const GridImage = () => {
 
   const prevGrid = () => {
     setCurrentGridIndex((prevIndex) => {
-      const prevIndexCalc = prevIndex === 0 ? Math.ceil(gridItems.length / 3) - 1 : prevIndex - 1;
+      const prevIndexCalc = prevIndex === 0 ? groupedItems.length - 1 : prevIndex - 1;
       scrollToIndex(prevIndexCalc);
       return prevIndexCalc;
     });
@@ -39,13 +66,6 @@ const GridImage = () => {
     }
   };
 
-  // Mengelompokkan gridItems dalam potongan 3
-  const groupedItems = gridItems.reduce((acc, item, index) => {
-    if (index % 3 === 0) acc.push([]);
-    acc[acc.length - 1].push(item);
-    return acc;
-  }, []);
-
   return (
     <div className="relative overflow-hidden max-w-4xl mx-auto">
       <h1 className="text-3xl font-bold mb-4 text-center text-black">Member Photo</h1>
@@ -57,7 +77,7 @@ const GridImage = () => {
           {groupedItems.map((group, groupIndex) => (
             <div key={groupIndex} className="flex flex-shrink-0 w-full">
               {group.map((item) => (
-                <div key={item.id} className="w-1/3 sm:w-1/2 p-2">
+                <div key={item.id} className={`p-2 ${itemsPerView === 2 ? 'w-1/2' : 'w-1/3'}`}>
                   <div className="relative overflow-hidden rounded-lg">
                     <div className="absolute inset-0 bg-gradient-to-br from-red-400 via-yellow-500 to-blue-500 opacity-70 rounded-lg"></div>
                     <div className="relative w-full h-64 bg-gray-200 rounded-lg">

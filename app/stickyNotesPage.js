@@ -37,7 +37,7 @@ const StickyNotesPage = () => {
           const newX = e.clientX - offset.x;
           const newY = e.clientY - offset.y;
           const noteElement = document.getElementById(`note-${dragging}`);
-          
+
           // Boundary checks
           const maxX = containerRect.width - noteElement.offsetWidth;
           const maxY = containerRect.height - noteElement.offsetHeight;
@@ -63,12 +63,15 @@ const StickyNotesPage = () => {
   }, []);
 
   useEffect(() => {
-    window.addEventListener('mousemove', handleMouseMove);
-    window.addEventListener('mouseup', handleMouseUp);
+    const handleMouseMoveWrapper = (e) => handleMouseMove(e);
+    const handleMouseUpWrapper = () => handleMouseUp();
+    
+    window.addEventListener('mousemove', handleMouseMoveWrapper, { passive: true });
+    window.addEventListener('mouseup', handleMouseUpWrapper);
 
     return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
-      window.removeEventListener('mouseup', handleMouseUp);
+      window.removeEventListener('mousemove', handleMouseMoveWrapper);
+      window.removeEventListener('mouseup', handleMouseUpWrapper);
     };
   }, [handleMouseMove, handleMouseUp]);
 
@@ -122,12 +125,15 @@ const StickyNotesPage = () => {
   }, []);
 
   useEffect(() => {
-    window.addEventListener('touchmove', handleTouchMove);
-    window.addEventListener('touchend', handleTouchEnd);
+    const handleTouchMoveWrapper = (e) => handleTouchMove(e);
+    const handleTouchEndWrapper = () => handleTouchEnd();
+    
+    window.addEventListener('touchmove', handleTouchMoveWrapper, { passive: true });
+    window.addEventListener('touchend', handleTouchEndWrapper);
 
     return () => {
-      window.removeEventListener('touchmove', handleTouchMove);
-      window.removeEventListener('touchend', handleTouchEnd);
+      window.removeEventListener('touchmove', handleTouchMoveWrapper);
+      window.removeEventListener('touchend', handleTouchEndWrapper);
     };
   }, [handleTouchMove, handleTouchEnd]);
 
@@ -141,8 +147,6 @@ const StickyNotesPage = () => {
             key={note.id}
             className={`absolute p-4 border border-gray-400 rounded-lg shadow-lg ${note.color}`}
             style={{
-              left: 0, // Set left to 0
-              top: 0, // Set top to 0
               width: '150px', // Adjust the width
               height: '150px', // Adjust the height
               transform: `translate(${note.x}px, ${note.y}px) rotate(${Math.random() * 15 - 7.5}deg)`,
