@@ -35,7 +35,7 @@ export default function Jumbotron() {
     <div
       ref={jumbotronRef}
       className="w-screen h-screen relative bg-cover bg-center bg-no-repeat text-white px-8"
-      style={{ backgroundImage: "url('/banner.jpg')" }}
+      style={{ backgroundImage: "url('/BannerBg.png')" }}
     >
       {/* Overlay */}
       <div className="absolute inset-0 bg-black opacity-30"></div>
