@@ -38,7 +38,7 @@ export default function Jumbotron() {
       style={{ backgroundImage: "url('/banner.jpg')" }}
     >
       {/* Overlay */}
-      <div className="absolute inset-0 bg-black opacity-50"></div>
+      <div className="absolute inset-0 bg-black opacity-30"></div>
       <div className="relative z-10 flex flex-col items-start justify-center h-full px-4 md:px-8">
         <div className="max-w-3xl">
           <motion.h1
@@ -58,7 +58,7 @@ export default function Jumbotron() {
             The esgata gate is watered by a freestyle smile. But the latest but most interesting thing is my lack of interest in the valley and the timing of the shooting.
           </motion.p>
           <motion.button
-            className="px-6 py-3 bg-orange-600 hover:bg-orange-500 rounded text-base md:text-lg font-semibold transition duration-300"
+            className="px-6 py-3 bg-[#EF4413] hover:bg-orange-700 rounded text-base md:text-lg font-semibold transition duration-300"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : 20 }}
             transition={{ duration: 1, ease: 'easeOut', delay: 0.4 }}

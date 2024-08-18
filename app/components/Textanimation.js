@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 
-const languages = [
-  "Hallo", "Hello", "Hola", "Bonjour", "Ciao", "こんにちは", "안녕하세요", "Привет", "Merhaba", "Olá", "שלום", "नमस्ते", "Sawubona", "สวัสดี", "Selam", "γειά σου", "Kamusta", "Xin chào", "Salut"
+const names = [
+  "Ce Kaitlyn","Valle", "Vina", "Jeanel", "Aflah","Oca", "Kale", "Yona", "Ansel", "Sean", 
 ];
 
 export default function TextAnimation({ onLoadingComplete }) {
@@ -9,15 +9,15 @@ export default function TextAnimation({ onLoadingComplete }) {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentLang((prev) => (prev + 1) % languages.length);
-    }, 2000); // Change language every 2 seconds
+      setCurrentLang((prev) => (prev + 1) % names.length);
+    }, 2000); 
 
     const timer = setTimeout(() => {
       clearInterval(interval);
       if (typeof onLoadingComplete === 'function') {
         onLoadingComplete(); // Notify when loading is complete
       }
-    }, 10000); // Duration of loading
+    }, 30000); // Duration of loading
 
     return () => {
       clearInterval(interval);
@@ -37,7 +37,7 @@ export default function TextAnimation({ onLoadingComplete }) {
             transition: 'opacity 1s ease-in-out',
           }}
         >
-          {languages[currentLang]}
+          {names[currentLang]}
         </div>
       </div>
       <style jsx>{`

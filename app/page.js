@@ -17,7 +17,7 @@ export default function Home() {
     setTimeout(() => {
       setShowSplash(false); // Sembunyikan splash screen setelah animasi selesai
       console.log('Splash screen hidden');
-    }, 10000); // Match this duration with the text animation duration plus welcome display time
+    }, 20000); // Match this duration with the text animation duration plus welcome display time
   };
 
   const handleTextAnimationComplete = () => {

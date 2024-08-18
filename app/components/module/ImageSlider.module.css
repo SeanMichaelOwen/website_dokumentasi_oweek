@@ -1,0 +1,40 @@
+.slider-container {
+  position: relative;
+  width: 500px; /* Adjust the width as needed */
+  overflow: hidden;
+}
+
+.slider-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.slider {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.slider img {
+  max-width: 100%;
+  height: auto;
+}
+
+.slider-button {
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.slider-button.prev {
+  left: 10px;
+}
+
+.slider-button.next {
+  right: 10px;
+}
