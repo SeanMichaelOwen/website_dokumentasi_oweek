@@ -67,7 +67,8 @@ const GridImage = () => {
   };
 
   return (
-    <div className="relative overflow-hidden max-w-4xl mx-auto" id="MemberPhoto">
+    <main className="min-h-screen flex items-center justify-center" id="MemberPhoto">
+    <div className="relative overflow-hidden max-w-4xl mx-auto">
       <h1 className="text-3xl font-bold mb-4 text-center text-black">Member Photo</h1>
       <div className="relative">
         <div
@@ -116,6 +117,9 @@ const GridImage = () => {
         readable presentation.
       </p>
     </div>
+
+    </main>
+    
   );
 };
 

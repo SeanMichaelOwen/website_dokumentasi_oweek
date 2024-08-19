@@ -9,9 +9,7 @@ export default function Homes() {
     <div style={{ backgroundColor: '#fff', color: '#fff', minHeight: '100vh' }}>
       <Jumbotron />
       <main>
-      <div className="min-h-screen flex items-center justify-center">
       <GridImage/>
-      </div>
       <StickyNotesPage/>
       </main>
     </div>
