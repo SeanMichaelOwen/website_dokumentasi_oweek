@@ -138,18 +138,18 @@ const StickyNotesPage = () => {
   }, [handleTouchMove, handleTouchEnd]);
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen w-screen overflow-hidden bg-orange-500">
+    <div className="flex flex-col items-center justify-center h-screen w-screen overflow-hidden bg-[#EF4413]">
       <h1 className="text-3xl text-white mb-4 pt-8">Sticky Notes</h1>
       <div className="relative w-full h-full" ref={containerRef}>
         {notes.map(note => (
           <div
             id={`note-${note.id}`} // Add id to the sticky note
             key={note.id}
-            className={`absolute p-4 border border-gray-400 rounded-lg shadow-lg ${note.color}`}
+            className={`absolute p-4 border border-white rounded-lg shadow-lg ${note.color}`}
             style={{
               width: '150px', // Adjust the width
               height: '150px', // Adjust the height
-              transform: `translate(${note.x}px, ${note.y}px) rotate(${Math.random() * 15 - 7.5}deg)`,
+              transform: `translate(${note.x}px, ${note.y}px) rotate(${Math.random() * 15 - 8}deg)`,
               cursor: 'grab',
               touchAction: 'none', // Prevent default touch actions to handle dragging
               willChange: 'transform' // Optimize rendering performance
